@@ -1,0 +1,43 @@
+<?php
+
+use App\Http\Controllers\Create;
+use App\Http\Controllers\Main;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Listings routes
+    
+    Route::get('/listings', [ListingController::class, 'index'])->name('listings.index');
+    Route::get('/listings/create', [ListingController::class, 'create'])->name('listings.create');
+    Route::post('/listings', [ListingController::class, 'store'])->name('listings.store');
+    Route::get('/my-listings', [ListingController::class, 'myListings'])->name('listings.my');
+    Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->name('listings.destroy');
+    Route::put('/listings/{listing}', [ListingController::class, 'update'])->name('listings.update');
+    Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
+
+
+    
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+});
+
+    
+
+
+
+require __DIR__.'/auth.php';
