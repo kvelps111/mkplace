@@ -9,9 +9,12 @@ use App\Models\User;
 use App\Models\School;
 use App\Models\ListingPhoto;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Listing extends Model
 {
-    use SoftDeletes; // enable soft deletes
+    use SoftDeletes; 
+    use HasFactory;
 
     protected $fillable = [
         'user_id', 'title', 'description', 'price', 'school_id', 'category_id'

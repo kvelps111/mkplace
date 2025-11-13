@@ -26,10 +26,6 @@ use Illuminate\Auth\Access\Response;
         return true; // anyone logged in can create
     }
     
-    public function update(User $user, Listing $listing): bool
-    {
-        return $user->id === $listing->user_id; // only owner can update
-    }
     
     public function delete(User $user, Listing $listing): bool
     {
